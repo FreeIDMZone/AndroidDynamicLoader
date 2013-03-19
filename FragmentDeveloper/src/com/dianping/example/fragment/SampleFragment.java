@@ -1,6 +1,8 @@
 package com.dianping.example.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,5 +43,13 @@ public class SampleFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("counter", counter);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		DatabaseHelper dbHelper = new DatabaseHelper(getActivity(), "test_db");
+		SQLiteDatabase sqliteDatabase = dbHelper.getReadableDatabase();
 	}
 }
