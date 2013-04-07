@@ -17,4 +17,3 @@ It's forked from activityLoader project. use a little tricky method to implement
 The pluginActivity should inherit from BaseActivity and set the Config file in source code. The project pluginActivity is a example of the plframework.
 
 PS: u can also run pluginActivity seperately.
-
