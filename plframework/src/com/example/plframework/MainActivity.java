@@ -222,7 +222,8 @@ public class MainActivity extends Activity {
 			} else {
 				mViewHolder = (ViewHolder) convertView.getTag();
 			}
-			
+			if (((MyApplication)getApplication()).mBitmap != null)
+				mViewHolder.headImage.setImageBitmap(((MyApplication)getApplication()).mBitmap);
 			mViewHolder.title.setText(datas.get(position).getTitle());
 			mViewHolder.time.setText(datas.get(position).getTime());
 			return convertView;

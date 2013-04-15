@@ -6,10 +6,11 @@ import com.example.pluginactivity.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 public class stubActivity extends BaseStubActivity implements MessageExtPointInterace{
-
+	private static final String TAG = "stubActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +31,8 @@ public class stubActivity extends BaseStubActivity implements MessageExtPointInt
 
 	@Override
 	public Bitmap getIconPath() {
+		//Log.d(TAG, this.getPackageResourcePath());
+		Log.d(TAG, this.getResources().getResourceName(R.drawable.ios));
 		return BitmapFactory.decodeResource(this.getResources(), R.drawable.ios);
 	}
 

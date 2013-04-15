@@ -3,9 +3,7 @@ package com.example.plframework;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,9 +11,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.example.plframework.ExtPoint.ExtPointInvocationHandler;
 import com.example.plframework.ExtPoint.MessageExtPointInterace;
 
 import dalvik.system.DexClassLoader;
@@ -24,7 +22,7 @@ public class MyApplication extends Application {
 	private static final String TAG = "MyApplication";
 	public static ClassLoader ORIGINAL_LOADER;
 	public static ClassLoader CUSTOM_LOADER = null;
-	
+	public static Bitmap mBitmap ;
 	public static Map<String, ClassLoader> PLUGIN_LOADER = new HashMap<String, ClassLoader>();
 	public static Map<String, MessageExtPointInterace> PLUGIN_PROXY = new HashMap<String, MessageExtPointInterace>();
 	@Override
@@ -87,11 +85,13 @@ public class MyApplication extends Application {
 				Resources res = new Resources(am, superRes.getDisplayMetrics(), superRes.getConfiguration());
 				//replace plugin resource, now u can use pluginIns access the plugin resource
 				new Smith<Object>(pluginIns, "res").set(res);
-				for (Class<?> clz : pluginIns.getClass().getInterfaces()) {
-					Log.d(TAG, clz.getName());
+				for (Method method : pluginIns.getClass().getMethods()) {
+					//Log.d(TAG, method.getName());
 				}
 				Log.d(TAG, pluginIns.getClass().getName());
-				Log.d(TAG, pluginIns.getClass().getMethod("getIconPath").invoke(pluginIns, null).toString());
+				Log.d(TAG, pluginIns.getClass().getMethod("getSummary").invoke(pluginIns, null).toString());
+				mBitmap = (Bitmap)pluginIns.getClass().getMethod("getIconPath").invoke(pluginIns, null);
+				
 				/*Object proxy =  Proxy.newProxyInstance(pluginIns.getClass().getClassLoader(),
 						pluginIns.getClass().getInterfaces(), new InvocationHandler() {
 							
