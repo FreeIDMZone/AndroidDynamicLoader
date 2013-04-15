@@ -1,8 +1,7 @@
 package com.example.plframework;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -227,9 +226,6 @@ public class MainActivity extends Activity {
 			mViewHolder.title.setText(datas.get(position).getTitle());
 			mViewHolder.time.setText(datas.get(position).getTime());
 			return convertView;
-		}
-		
-		
-		
+		}		
 	}
 }
