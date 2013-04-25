@@ -2,7 +2,6 @@ package com.example.plframework;
 
 import java.util.ArrayList;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +9,13 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils.TruncateAt;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -90,7 +90,12 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-								
+				//MyApplication.CUSTOM_LOADER = ; 
+				String title = datas.get(position).getTitle();
+				MyApplication.CUSTOM_LOADER = MyApplication.PLUGIN_LOADER.get(title);
+				Log.d(TAG, title);
+				Intent i = new Intent("com.example.intent.action.stub_ACTIVITY");
+				startActivity(i);
 			}
 		});
 		
@@ -112,47 +117,7 @@ public class MainActivity extends Activity {
 		data.setTitle(title);
 		datas.add(data);
 	}
-
-	/*@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-
-		Map<String, String> item = data.get(position);
-		String title = item.get("title");
-		String path = item.get("path");
-
-		try {
-			File dexInternalStoragePath = getDir("dex", Context.MODE_PRIVATE);
-			dexInternalStoragePath.mkdirs();
-			File f = new File(dexInternalStoragePath, title);
-			InputStream fis = getAssets().open(path);
-			FileOutputStream fos = new FileOutputStream(f);
-			byte[] buffer = new byte[0xFF];
-			int len;
-			while ((len = fis.read(buffer)) > 0) {
-				fos.write(buffer, 0, len);
-			}
-			fis.close();
-			fos.close();
-
-			File optimizedDexPath = getDir("outdex", Context.MODE_PRIVATE);
-			optimizedDexPath.mkdirs();
-			DexClassLoader dcl = new DexClassLoader(f.getAbsolutePath(),
-					optimizedDexPath.getAbsolutePath(), null,
-					MyApplication.ORIGINAL_LOADER.getParent());
-			MyApplication.CUSTOM_LOADER = dcl;
-
-			Toast.makeText(this, title + " loaded, try launch again",
-					Toast.LENGTH_SHORT).show();
-			//mIntent = new Intent("com.test.intent.action.Mytest");
-		} catch (Exception e) {
-			Toast.makeText(this, "Unable to load " + title, Toast.LENGTH_SHORT)
-					.show();
-			e.printStackTrace();
-			MyApplication.CUSTOM_LOADER = null;
-		}
-		mIntent = new Intent("com.example.intent.action.stub_ACTIVITY");
-		startActivity(mIntent);
-	} */
+	 
 	@Override
 	public Resources getResources() {
 		// TODO Auto-generated method stub
@@ -164,6 +129,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		return super.getAssets();
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

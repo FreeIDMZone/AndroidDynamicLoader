@@ -123,10 +123,16 @@ public class MyApplication extends Application {
 				}
 				try {
 					Class<?> c = CUSTOM_LOADER.loadClass(className);
+					
 					if (c != null)
 						return c;
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
+					Class<?> c = getSystemClassLoader().loadClass(className);
+					if (c != null)
+						return c;
+					else
+						return super.loadClass(className);
 				}
 			}
 			return super.loadClass(className);
