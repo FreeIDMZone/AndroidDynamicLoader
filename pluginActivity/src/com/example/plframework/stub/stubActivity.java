@@ -13,6 +13,7 @@ public class stubActivity extends BaseStubActivity implements MessageExtPointInt
 	private static final String TAG = "stubActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.e(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);		
 	}
